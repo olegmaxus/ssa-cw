@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import headers.linear_algebra_pack as lag
 import headers.auxiliary_functions_pack as aux
 import headers.pyplot_vision_pack as pvp
