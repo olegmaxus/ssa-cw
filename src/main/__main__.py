@@ -78,10 +78,10 @@ if full_partial:
     # plotting #
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # ~ REQUESTING WHETHER TO PLOT TIME SERIES' COMPONENTS
 
-    answer = str(input("\nPlease, specify:\nWhich components of the SSA wholly-derived time series you want to be plotted?"
-          "\nPlease, input + or -: "))
+    print("\nPlease, specify:\nWhich components of the SSA wholly-derived time series you want to be plotted?"
+          "\nPlease, input + or -:\n")
 
-    true_false = ["\nTime Series itself: ",
+    true_false = ["Time Series itself: ",
                   "Trend component: ",
                   "1st periodic component: ",
                   "2nd periodic component: ",
@@ -256,10 +256,10 @@ else:
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # ~ REQUESTING WHETHER TO PLOT TIME SERIES' COMPONENTS
 
-    answer = str(input("\nPlease, specify:\nWhich components of the \"rough\" SSA partially-derived time series you want to be plotted?"
-          "\nPlease, input + or -: "))
+    print("\nPlease, specify:\nWhich components of the \"rough\" SSA partially-derived time series you want to be plotted?"
+          "\nPlease, input + or -:\n")
 
-    true_false = ["\nTime Series itself: ",
+    true_false = ["Time Series itself: ",
                   "Trend component: ",
                   "1st periodic component: ",
                   "2nd periodic component: ",
