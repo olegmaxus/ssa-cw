@@ -27,7 +27,7 @@ F_4 = F[900:]
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # ~ REQUESTING TO PLOT PARTIALS
 
 # asking to plot the parts of the huge TS and their mip SSA-derived components.
-string_yn = str(input("Hello!\nPlease, specify:\nShould the program plot the period-derived "
+string_yn = str(input("\n\nHello!\nPlease, specify:\nShould the program plot the period-derived "
                       "components of the initial time series?\nPlease, print: + or -: "))
 other_yn = str(input("\nPlease, specify:\nShould the program plot the SVD-derivations for "
                       "each component?\nPlease, print: + or -: "))
