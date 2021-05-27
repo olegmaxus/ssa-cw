@@ -12,8 +12,8 @@ def get_LKN(np_time_series):
 
 def read_graph_data_snp500(path):
     graph_data = pd.read_csv(path, delimiter=",", names=['Date', 'S&P500', 'Dividend', 'Earnings', 'CPI', 'LIR', 'RP', 'RD', 'RE', 'PE10'])
-    graph_data = graph_data.drop(['Date', 'Dividend', 'Earnings', 'CPI', 'LIR', 'RP', 'RD', 'RE', 'PE10'], 1)
-    return graph_data.to_numpy().T[0]
+    graph_data = graph_data.drop(['Dividend', 'Earnings', 'CPI', 'LIR', 'RP', 'RD', 'RE', 'PE10'], 1)
+    return graph_data.to_numpy().T[0], graph_data.to_numpy().T[1]
 
 
 def read_some_graph_data(path):
