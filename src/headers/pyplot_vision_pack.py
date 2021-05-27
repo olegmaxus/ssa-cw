@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.dates as pdates
 import headers.linear_algebra_pack as lag
 import headers.auxiliary_functions_pack as aux
 
@@ -20,13 +21,13 @@ def plot_contribution(spectrum):
     plt.title("Relative [$\mathcal{R}(i)$] and Cumulative [$\mathcal{C}(i)$] contributions [in %] of $\mathcal{W}_i$ to $\mathbf{X}$")
     plt.xlabel("$i$")
     plt.ylabel("Contribution, %")
-    plt.xlim(0, (len(spectrum) - 1) // 10 + 2)
-    plt.xticks(range(0, (len(spectrum) - 1) // 10 + 2), range(1, (len(spectrum) - 1) // 10 + 3))
+    plt.xlim(0, 15)
+    plt.xticks(range(1, 15))
     plt.legend()
     plt.show()
 
 
-def full_svd_process_and_plot_snp500(np_time_series, string_period, num_of_ts='', plot=False):
+def full_svd_process_and_plot_snp500(date, np_time_series, string_period, num_of_ts='', plot=False):
     l, k, n = aux.get_LKN(np_time_series)
     x = np.arange(n)
     _X = lag.trajectory_matrix(np_time_series, l)
@@ -36,11 +37,27 @@ def full_svd_process_and_plot_snp500(np_time_series, string_period, num_of_ts=''
 
     if plot:
         ''' 1st: plotting the time series itself '''
-        plt.plot(x, np_time_series, lw=2.5)
+        figure, ax = plt.subplots()
+        ax.plot(date.astype('datetime64',copy=False), np_time_series, lw=2.5)
         plt.legend([r"$\mathcal{F}_{%s}(x)$" % num_of_ts])
-        plt.xlabel("$Months$")
+        plt.xlabel("$Dates$")
         plt.ylabel(r"$\mathcal{F}_{%s}(x)$" % num_of_ts)
         plt.title(r"Time series of S&P500* index ($\mathcal{F}_{%s}(x)$), period: %s (%s months)" % (num_of_ts, string_period, n))
+
+        five_yr = pdates.YearLocator(5)
+        ax.xaxis.set_major_locator(five_yr)
+
+        one_yr = pdates.YearLocator(1)
+        ax.xaxis.set_minor_locator(one_yr)
+
+        ax.xaxis.set_major_formatter(pdates.DateFormatter('%Y-%m'))
+        datemin = np.datetime64(date[0], 'M') - np.timedelta64(6, 'M')
+        datemax = np.datetime64(date[len(date) - 1], 'M') + np.timedelta64(6, 'M')
+
+        ax.set_xlim(datemin, datemax)
+        ax.format_xdata = pdates.DateFormatter('%Y-%m')
+        figure.autofmt_xdate()
+
         plt.show()
 
         ''' 2nd: plotting the trajectory matrix of $\mathcal{F}(x)$ '''
@@ -80,39 +97,72 @@ def full_svd_process_and_plot_snp500(np_time_series, string_period, num_of_ts=''
 
 
 def plot_ts_and_components(_range, list_of_specials, list_noisy, str_period, num_of_ts):
-    plt.xlabel("$Months$")
+    figure, ax = plt.subplots()
+
+    plt.xlabel("$Dates$")
     plt.ylabel(r"$\mathcal{F}_{%s}(x)$" % num_of_ts)
     plt.title(r"Time series of S&P500* index ($\mathcal{F}_{%s}(x)$) and its"
               r" components, period: %s (%s months)" % (num_of_ts, str_period, len(_range)))
 
     for plot_components, names in list_of_specials:
-        plt.plot(_range, plot_components, label=(names % num_of_ts), lw=2.5)
-    plt.plot(_range, list_noisy[0][0], color='red',
+        ax.plot(_range.astype('datetime64',copy=False), plot_components, label=(names % num_of_ts), lw=2.5)
+    ax.plot(_range.astype('datetime64',copy=False), list_noisy[0][0], color='red',
               label=(list_noisy[0][1] % num_of_ts), lw=2.5)
-    plt.plot(_range, list_noisy[1][0], color='black',
+    ax.plot(_range.astype('datetime64',copy=False), list_noisy[1][0], color='black',
               label=(list_noisy[1][1] % num_of_ts), lw=2.5)
 
     plt.legend(loc=(0.98, 0.25), fancybox=True, shadow=True)
+    five_yr = pdates.YearLocator(5)
+    ax.xaxis.set_major_locator(five_yr)
+
+    one_yr = pdates.YearLocator(1)
+    ax.xaxis.set_minor_locator(one_yr)
+
+    ax.xaxis.set_major_formatter(pdates.DateFormatter('%Y-%m'))
+    datemin = np.datetime64(_range[0], 'M') - np.timedelta64(6, 'M')
+    datemax = np.datetime64(_range[len(_range) - 1], 'M') + np.timedelta64(6, 'M')
+
+    ax.set_xlim(datemin, datemax)
+    ax.format_xdata = pdates.DateFormatter('%Y-%m')
+    figure.autofmt_xdate()
     plt.show()
 
 
-def plot_full_snp500(_range, list_of_specials_01):
-    plt.xlabel("$Months$")
+def plot_full_snp500(_range, list_of_specials_01, y_scale="linear"):
+    figure, ax = plt.subplots()
+
+    plt.xlabel("$Dates$")
     plt.ylabel(r"$\mathcal{F}(x)$")
     plt.title(r"Time series of S&P500* index ($\mathcal{F}(x)$) and its "
               r"roughly estimated elements, full period [1926-2018*]")
+    plt.yscale(y_scale)
 
     flag = False
     for plot_components, names, colored, indicator in list_of_specials_01:
         if indicator:
             if colored != '':
-                plt.plot(_range, plot_components, color=colored, label=names, lw=2.5)
+                ax.plot(_range.astype('datetime64',copy=False), plot_components, color=colored, label=names, lw=2.5)
             else:
-                plt.plot(_range, plot_components, label=names, lw=2.5)
+                ax.plot(_range.astype('datetime64',copy=False), plot_components, label=names, lw=2.5)
         flag |= indicator
 
     if flag:
         plt.legend(loc=(0, 0.25), fancybox=True, shadow=True)
+
+        five_yr = pdates.YearLocator(5)
+        ax.xaxis.set_major_locator(five_yr)
+
+        one_yr = pdates.YearLocator(1)
+        ax.xaxis.set_minor_locator(one_yr)
+
+        ax.xaxis.set_major_formatter(pdates.DateFormatter('%Y-%m'))
+        datemin = np.datetime64(_range[0], 'M') - np.timedelta64(6, 'M')
+        datemax = np.datetime64(_range[len(_range) - 1], 'M') + np.timedelta64(6, 'M')
+
+        ax.set_xlim(datemin, datemax)
+        ax.format_xdata = pdates.DateFormatter('%Y-%m')
+        figure.autofmt_xdate()
+
         plt.show()
     else:
         print("\n\nSorry, nothing to print.\n\n")
