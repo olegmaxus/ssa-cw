@@ -67,7 +67,7 @@ if full_partial:
 
     ''' 1st: '''
     f_predicted_tr = lag.fast_diagonal_averaging(elementary_span[0])
-    f_predicted_p1 = lag.fast_diagonal_averaging(elementary_span[2:10].sum(axis=0))
+    f_predicted_p1 = lag.fast_diagonal_averaging(elementary_span[1:10].sum(axis=0))
     f_predicted_p2 = lag.fast_diagonal_averaging(elementary_span[10:21].sum(axis=0))
     f_predicted_p3 = lag.fast_diagonal_averaging(elementary_span[21:31].sum(axis=0))
     f_predicted_noise = lag.fast_diagonal_averaging(elementary_span[31:].sum(axis=0))
