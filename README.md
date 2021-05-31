@@ -1,5 +1,5 @@
 # HSE Course Work: Persistence of the trends of financial time series
-The Singular Spectrum Analysis algorithm, implemented by Oleg M. Malchenko 
+The Singular Spectrum Analysis algorithm for analysis of S&P500 index time series, implemented by Oleg M. Malchenko 
 ## Repository description
 This repository contains both:
 
