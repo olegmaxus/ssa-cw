@@ -10,4 +10,7 @@ This repository contains both:
 3. The equipped data set of S&P500 index's time series, starting from January 1926.
 
 3. The batch files to run the project.
-
+   In order to run the program, using the `.bat` files, you have to make sure, 
+   that python is inclused in your `$PATH` environmental variable.
+   To run `__test__.py` simple double-click it. To run `__main__.py`, please
+   drag and drop the `.csv` data set onto the main batch file.
