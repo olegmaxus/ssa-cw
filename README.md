@@ -1,5 +1,5 @@
 # HSE Course Work: Persistence of the trends of financial time series
-The Singular Spectrum Analysis algorithm for analysis of S&P500 index time series, implemented by Oleg M. Sternberg
+The Singular Spectrum Analysis algorithm for analysis of S&P500 index time series, implemented by Oleg M.
 ## Repository description
 This repository contains both:
 
